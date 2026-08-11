@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>의약품 성분 사용실적 조회</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- 엑셀 파일 읽기 -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+    <!-- 차트 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+        <h1>의약품 성분 사용실적 조회</h1>
+        <p>시도·시군구 및 요양기관종별 성분 사용실적을 조회합니다.</p>
+    </div>
+</header>
+
+<main>
+
+    <!-- 검색 영역 -->
+    <section class="search-box">
+
+        <div class="section-title">
+            <h2>조회 조건</h2>
+            <span>* 필수 입력</span>
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-item">
+                <label for="ingredient">성분코드</label>
+                <input
+                    type="text"
+                    id="ingredient"
+                    placeholder="성분코드를 입력하세요"
+                >
+            </div>
+
+            <div class="form-item">
+                <label for="ingredientName">성분명</label>
+                <input
+                    type="text"
+                    id="ingredientName"
+                    placeholder="성분명을 입력하세요"
+                >
+            </div>
+
+            <div class="form-item">
+                <label for="startDate">진료년월</label>
+                <div class="date-group">
+                    <input type="month" id="startDate" value="2025-01">
+                    <span>~</span>
+                    <input type="month" id="endDate" value="2026-03">
+                </div>
+            </div>
+
+            <div class="form-item">
+                <label for="region">
+                    시도코드 <strong>*</strong>
+                </label>
+
+                <select id="region">
+                    <option value="전국">전국</option>
+                    <option value="서울" selected>서울</option>
+                    <option value="부산">부산</option>
+                    <option value="대구">대구</option>
+                    <option value="인천">인천</option>
+                    <option value="광주">광주</option>
+                    <option value="대전">대전</option>
+                    <option value="울산">울산</option>
+                    <option value="세종">세종</option>
+                    <option value="경기">경기</option>
+                    <option value="강원">강원</option>
+                    <option value="충북">충북</option>
+                    <option value="충남">충남</option>
+                    <option value="전북">전북</option>
+                    <option value="전남">전남</option>
+                    <option value="경북">경북</option>
+                    <option value="경남">경남</option>
+                    <option value="제주">제주</option>
+                </select>
+            </div>
+
+            <div class="form-item">
+                <label for="hospital">조제, 처방구분</label>
+
+                <select id="hospital">
+                    <option value="처방기준(원내조제+원외처방)">처방기준(원내조제+원외처방)</option>
+                    <option value="조제기준(원내조제+약국조제)">조제기준(원내조제+약국조제)</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="button-area">
+            <button id="resetBtn" class="reset-btn">초기화</button>
+            <button id="searchBtn" class="search-btn">조회하기</button>
+        </div>
+
+    </section>
+
+
+    <!-- 조회 결과 -->
+    <section class="result-section">
+
+        <div class="result-header">
+            <div>
+                <h2>조회 결과</h2>
+                <p id="resultCount">검색 결과를 불러오는 중입니다.</p>
+            </div>
+
+            <button id="downloadBtn" class="download-btn">
+                엑셀 다운로드
+            </button>
+        </div>
+
+
+        <!-- 요약 카드 -->
+        <div class="summary">
+
+            <div class="summary-card">
+                <span>총 수량</span>
+                <strong id="totalQuantity">0</strong>
+            </div>
+
+            <div class="summary-card">
+                <span>총 금액</span>
+                <strong id="totalAmount">0원</strong>
+            </div>
+
+            <div class="summary-card">
+                <span>성분 종류</span>
+                <strong id="ingredientCount">0</strong>
+            </div>
+
+            <div class="summary-card">
+                <span>지역</span>
+                <strong id="regionResult">서울</strong>
+            </div>
+
+        </div>
+
+
+        <!-- 차트 -->
+        <div class="chart-box">
+            <div class="chart-header">
+                <h3>월별 사용실적</h3>
+                <span>수량 기준</span>
+            </div>
+
+            <canvas id="usageChart"></canvas>
+        </div>
+
+
+        <!-- 테이블 -->
+        <div class="table-box">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>성분코드</th>
+                        <th>성분명</th>
+                        <th>시도</th>
+                        <th>시군구</th>
+                        <th>요양기관종별</th>
+                        <th>기간</th>
+                        <th>수량</th>
+                        <th>금액</th>
+                    </tr>
+                </thead>
+
+                <tbody id="resultTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>의약품 성분 사용실적 조회 서비스</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
