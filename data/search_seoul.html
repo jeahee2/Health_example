@@ -13627,7 +13627,7 @@
 						<li ><a href="javascript:fn_moveTabUrl('/op/opc/olapGnlInfoTab3.do');">성분의 상병별 </a></li>				
 				 	
 				</ul>
-				<form id="searchForm" action="/op/opc/olapGnlInfoTab2.do;HIRAODSESSION=7tPv-IqEjVJVYFTtxTcsLq7z8BxxqH5UOU3Jb0RSsqZnmcfuFkmA!21032049!NONE" method="post">
+				<form id="searchForm" action="/op/opc/olapGnlInfoTab2.do" method="post">
 					<div class="searchBox02">
 						<div class="text func01">
 							<input id="searchWrd" name="searchWrd" title="성분 코드 입력(새창열림)" placeholder="조회 버튼을 통해 성분 코드를 입력해주세요." class="w350px fix" type="text" value="" autocomplete="off"/>
@@ -13640,17 +13640,17 @@
 						<div>
 							<span class="mBlock"  id="diagDate">
 								<label for="year">진료년월</label>
-								<input id="sDiagYm" name="sDiagYm" type="hidden" value=""/>	 
-  								<input id="eDiagYm" name="eDiagYm" type="hidden" value=""/>
-								<input id="sYm" name="sYm" title="진료년월 시작월" placeholder="시작월" type="month" value=""/> ~
-								<input id="eYm" name="eYm" title="진료년월 종료월" placeholder="종료월" type="month" value=""/>
+								<input id="sDiagYm" name="sDiagYm" type="hidden" value="2026-03"/>	 
+  								<input id="eDiagYm" name="eDiagYm" type="hidden" value="2026-03"/>
+								<input id="sYm" name="sYm" title="진료년월 시작월" placeholder="시작월" type="month" value="2026-03"/> ~
+								<input id="eYm" name="eYm" title="진료년월 종료월" placeholder="종료월" type="month" value="2026-03"/>
 							</span>
 							<span class="mBlock">
 								<label for="code">시도코드 <span class="fcR">(필수)</span></label>
 								<select id="ykihoPlcTpCd" name="ykihoPlcTpCd" title="시도코드 선택" class="code">
 									<option value="">선택하세요</option>
 									
-										<option value="11">서울</option>
+										<option value="11" selected="selected">서울</option>
 									
 										<option value="21">부산</option>
 									
@@ -13689,7 +13689,7 @@
 							<label for="gubun01">보험자구분</label>
 							<div class="checkList diIb">
 								<span>
-									<input id="gubun01" name="gubun" checked="checked" type="radio" value="0"/>
+									<input id="gubun01" name="gubun" checked="checked" type="radio" value="0" checked="checked"/>
 									<label for="gubun01">전체</label>
 								</span>
 								<span>
@@ -13710,7 +13710,7 @@
 							<label for="gubun201">조제, 처방구분</label>
 							<div class="checkList diIb">
 								<span>
-									<input id="tabGubun201" name="tabGubun" checked="checked" type="radio" value="201"/>
+									<input id="tabGubun201" name="tabGubun" checked="checked" type="radio" value="201" checked="checked"/>
 									<label for="tabGubun201">조제기준(원내조제+약국조제)</label>
 								</span>
 								<span>
@@ -13722,7 +13722,7 @@
 						<div class="mt10">
 							<label for="gubun301" class="vt">요양기관종별<span class="fcR"><br class="mo_hide">(필수)</span></label>
 							<div class="checkList diIb">
-								<input id="ykihoGubun" name="ykihoGubun" type="hidden" value=""/>
+								<input id="ykihoGubun" name="ykihoGubun" type="hidden" value="all"/>
 								<span>
 									<input type="checkbox" id="ykihoGubun1" value="all" >
 									<label for="ykihoGubun1">전체</label>
@@ -13814,6 +13814,28 @@
 					</form>
 					
 					
+					
+					 <div class="tblType01 head yScroll" tabindex="0">
+						<div class="thead"></div>
+						<div class="tbody">
+							 <table>
+								<caption></caption>
+								<colgroup>
+									<col class="w20 fix">
+									<col class="w80 fix">
+								</colgroup>					
+								<tbody>
+									<tr>
+			                       		<td colspan="2" >
+			                            	<span>검색된  항목이 없습니다.</br>
+			                            		  조회조건을  변경 후 검색버튼을 클릭하세요.	
+			                            	</span>
+			                            </td>
+			                        </tr>								
+								</tbody>
+							</table>
+						</div>	
+					</div>		
 					
 	
 
