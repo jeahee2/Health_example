@@ -1,24 +1,16 @@
 import requests
-from bs4 import BeautifulSoup
-import pandas as pd
 from pathlib import Path
-from datetime import datetime
 
 
-# ============================================
-# 기본 설정
-# ============================================
-
-URL = "https://opendata.hira.or.kr/op/opc/olapGnlInfoTab2.do"
+BASE_URL = "https://opendata.hira.or.kr"
+PAGE_URL = f"{BASE_URL}/op/opc/olapGnlInfoTab2.do"
+DOWNLOAD_URL = f"{BASE_URL}/op/opc/downExcelGnlInfoTab2.do"
 
 DATA_DIR = Path("data")
 DATA_DIR.mkdir(exist_ok=True)
 
 
-# ============================================
 # 전국 시도 코드
-# ============================================
-
 REGIONS = {
     "서울": "11",
     "부산": "21",
@@ -35,13 +27,9 @@ REGIONS = {
     "경북": "37",
     "경남": "38",
     "제주": "39",
-    "세종": "41"
+    "세종": "41",
 }
 
-
-# ============================================
-# Session
-# ============================================
 
 session = requests.Session()
 
@@ -56,14 +44,11 @@ session.headers.update({
 })
 
 
-# ============================================
-# 1. HIRA 페이지 접속
-# ============================================
-
 def connect():
+    """HIRA 세션 생성"""
 
     response = session.get(
-        URL,
+        PAGE_URL,
         timeout=30
     )
 
@@ -73,214 +58,119 @@ def connect():
 
     print("HIRA 접속 성공")
 
-    return response.text
+    return response
 
 
-# ============================================
-# 2. 조회 요청
-# ============================================
-
-def search_hira(
+def download_excel(
     region_code,
     start_month,
     end_month,
-    gubun="0"
+    search_word
 ):
+    """
+    HIRA Excel 다운로드 테스트
+    """
 
     print()
-    print("--------------------------------------------")
-    print("조회")
-    print("--------------------------------------------")
+    print("=" * 60)
+    print("HIRA Excel 다운로드")
+    print("=" * 60)
 
-    print("시도 코드 :", region_code)
-    print("시작 월   :", start_month)
-    print("종료 월   :", end_month)
-    print("구분      :", gubun)
+    print("시도 :", region_code)
+    print("기간 :", start_month, "~", end_month)
+    print("검색 :", search_word)
 
 
-    # ----------------------------------------
-    # HIRA 검색 form
-    # ----------------------------------------
-
+    # HIRA 페이지의 실제 form 값에 맞춤
     data = {
+        # 성분 검색어
+        "searchWrd": search_word,
 
-        # 성분코드
-        # 현재는 전체 조회를 위해 빈 값
-        "searchWrd": "",
-
-        # 통계 코드
+        # 숨겨진 값
         "olapCd": "",
         "olapCdNm": "",
 
         # 진료년월
         "sDiagYm": start_month,
         "eDiagYm": end_month,
-
         "sYm": start_month,
         "eYm": end_month,
 
         # 시도
         "ykihoPlcTpCd": region_code,
 
-        # 조제/처방
-        # 0 = 조제기준
-        # 4 = 처방기준
-        "gubun": gubun,
+        # 보험자구분
+        # 0 = 전체
+        "gubun": "0",
+
+        # 조제/처방구분
+        # 201 = 조제기준
+        "tabGubun": "201",
 
         # 요양기관종별
         # 전체
         "ykihoGubun": "all",
-
-        # 보험자구분
-        "tabGubun": "201",
-
     }
 
 
     response = session.post(
-        URL,
+        DOWNLOAD_URL,
         data=data,
         timeout=60
     )
 
+
+    print("HTTP 상태 :", response.status_code)
+    print("Content-Type :", response.headers.get("Content-Type"))
+    print("파일 크기 :", len(response.content))
+
+
     response.raise_for_status()
 
-    response.encoding = response.apparent_encoding
 
+    # 파일 저장
+    output_file = DATA_DIR / "hira_test.xlsx"
 
-    print("응답 상태 :", response.status_code)
-    print("응답 크기 :", len(response.text))
-
-    return response.text
-
-
-# ============================================
-# 3. 응답 HTML 분석
-# ============================================
-
-def analyze_result(html):
-
-    soup = BeautifulSoup(
-        html,
-        "html.parser"
+    output_file.write_bytes(
+        response.content
     )
 
 
     print()
-    print("--------------------------------------------")
-    print("조회 결과 분석")
-    print("--------------------------------------------")
+    print("저장 완료")
+    print(output_file)
 
-
-    # ----------------------------------------
-    # 테이블 찾기
-    # ----------------------------------------
-
-    tables = soup.find_all("table")
-
-    print("발견한 테이블 :", len(tables))
-
-
-    for index, table in enumerate(tables):
-
-        print()
-        print(f"[TABLE {index}]")
-
-        rows = table.find_all("tr")
-
-        for row in rows[:5]:
-
-            cells = row.find_all(
-                ["th", "td"]
-            )
-
-            values = [
-                cell.get_text(
-                    " ",
-                    strip=True
-                )
-                for cell in cells
-            ]
-
-            print(values)
-
-
-    return soup
-
-
-# ============================================
-# 4. HTML 저장
-# ============================================
-
-def save_result(html, filename):
-
-    path = DATA_DIR / filename
-
-    path.write_text(
-        html,
-        encoding="utf-8"
-    )
-
-    print()
-    print("결과 저장:", path)
-
-
-# ============================================
-# 실행
-# ============================================
 
 def main():
 
     print("=" * 60)
-    print("HIRA 전국 성분 사용실적 테스트")
+    print("HIRA 전국 데이터 크롤링 테스트")
     print("=" * 60)
 
 
-    # ----------------------------------------
-    # 먼저 HIRA 접속
-    # ----------------------------------------
+    # -----------------------------------------
+    # 1. HIRA 접속
+    # -----------------------------------------
 
     connect()
 
 
-    # ----------------------------------------
-    # 테스트
+    # -----------------------------------------
+    # 2. 서울 테스트
     #
-    # 일단 서울
-    # 2026년 03월
-    # 조제기준
-    # ----------------------------------------
+    # 중요:
+    # search_word는 실제 HIRA에서 선택한
+    # 성분/항목명이 들어가야 함
+    # -----------------------------------------
 
-    html = search_hira(
+    download_excel(
         region_code="11",
         start_month="2026-03",
         end_month="2026-03",
-        gubun="0"
+        search_word="테스트"
     )
-
-
-    # ----------------------------------------
-    # 결과 분석
-    # ----------------------------------------
-
-    analyze_result(html)
-
-
-    # ----------------------------------------
-    # 결과 HTML 저장
-    # ----------------------------------------
-
-    save_result(
-        html,
-        "search_seoul.html"
-    )
-
-
-    print()
-    print("=" * 60)
-    print("테스트 완료")
-    print("=" * 60)
 
 
 if __name__ == "__main__":
     main()
+
