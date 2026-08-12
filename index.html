@@ -1,43 +1,58 @@
-```html
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>전국 의약품 사용실적 조회</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>의약품 성분 사용실적 조회</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
+
 
 <body>
 
-<header>
-    <div class="header-inner">
+<header class="header">
 
-        <h1>전국 의약품 사용실적 조회</h1>
+    <div class="header-content">
+
+        <h1>
+            의약품 성분 사용실적 조회
+        </h1>
 
         <p>
-            성분별 의약품 사용량과 금액을 전국 시도별로 조회합니다.
+            전국 시도별 의약품 사용실적을 조회합니다.
         </p>
 
     </div>
+
 </header>
 
 
-<main>
+<main class="container">
 
-    <!-- 성분코드 조회 -->
+
+    <!-- 조회 조건 -->
     <section class="card">
 
-        <h2>성분코드 조회</h2>
+        <h2>
+            조회
+        </h2>
 
-        <div class="ingredient-search">
+        <div class="search-box">
 
-            <div class="form-group">
+
+            <!-- 성분코드 -->
+
+            <div class="input-group">
 
                 <label for="ingredientCode">
                     성분코드
@@ -52,86 +67,26 @@
             </div>
 
 
-            <div class="form-group">
+            <!-- 성분명 -->
+
+            <div class="input-group">
 
                 <label for="ingredientName">
-                    성분명칭
+                    성분명
                 </label>
 
                 <input
                     type="text"
                     id="ingredientName"
-                    placeholder="성분명칭을 입력하세요"
+                    placeholder="성분명을 입력하세요"
                 >
 
             </div>
 
 
-            <button
-                type="button"
-                id="ingredientSearchButton"
-                class="primary-button"
-            >
-                성분 검색
-            </button>
+            <!-- 시도 -->
 
-        </div>
-
-
-        <div class="result-title">
-            성분 검색 결과
-        </div>
-
-
-        <div id="ingredientResult">
-
-            <div class="empty">
-                성분코드 또는 성분명칭을 검색해주세요.
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- 선택된 성분 -->
-    <section class="card selected-card">
-
-        <h2>선택된 성분</h2>
-
-        <div id="selectedIngredient">
-
-            <span class="not-selected">
-                선택된 성분이 없습니다.
-            </span>
-
-        </div>
-
-    </section>
-
-
-    <!-- 조회 조건 -->
-    <section class="card">
-
-        <h2>조회 조건</h2>
-
-        <div class="search-grid">
-
-            <div class="form-group">
-
-                <label for="month">
-                    진료년월
-                </label>
-
-                <input
-                    type="month"
-                    id="month"
-                >
-
-            </div>
-
-
-            <div class="form-group">
+            <div class="input-group">
 
                 <label for="region">
                     시도
@@ -143,43 +98,101 @@
                         전국
                     </option>
 
-                    <option value="서울">서울</option>
-                    <option value="부산">부산</option>
-                    <option value="대구">대구</option>
-                    <option value="인천">인천</option>
-                    <option value="광주">광주</option>
-                    <option value="대전">대전</option>
-                    <option value="울산">울산</option>
-                    <option value="세종">세종</option>
-                    <option value="경기">경기</option>
-                    <option value="강원">강원</option>
-                    <option value="충북">충북</option>
-                    <option value="충남">충남</option>
-                    <option value="전북">전북</option>
-                    <option value="전남">전남</option>
-                    <option value="경북">경북</option>
-                    <option value="경남">경남</option>
-                    <option value="제주">제주</option>
+                    <option value="서울">
+                        서울
+                    </option>
+
+                    <option value="부산">
+                        부산
+                    </option>
+
+                    <option value="대구">
+                        대구
+                    </option>
+
+                    <option value="인천">
+                        인천
+                    </option>
+
+                    <option value="광주">
+                        광주
+                    </option>
+
+                    <option value="대전">
+                        대전
+                    </option>
+
+                    <option value="울산">
+                        울산
+                    </option>
+
+                    <option value="세종">
+                        세종
+                    </option>
+
+                    <option value="경기">
+                        경기
+                    </option>
+
+                    <option value="강원">
+                        강원
+                    </option>
+
+                    <option value="충북">
+                        충북
+                    </option>
+
+                    <option value="충남">
+                        충남
+                    </option>
+
+                    <option value="전북">
+                        전북
+                    </option>
+
+                    <option value="전남">
+                        전남
+                    </option>
+
+                    <option value="경북">
+                        경북
+                    </option>
+
+                    <option value="경남">
+                        경남
+                    </option>
+
+                    <option value="제주">
+                        제주
+                    </option>
 
                 </select>
 
             </div>
 
 
-            <div class="form-group">
+            <!-- 조제·처방구분 -->
 
-                <label for="usageType">
+            <div class="input-group">
+
+                <label for="prescriptionType">
                     조제·처방구분
                 </label>
 
-                <select id="usageType">
+                <select id="prescriptionType">
+
+                    <option value="전체">
+                        전체
+                    </option>
 
                     <option value="조제기준">
                         조제기준
+                        (원내조제+약국조제)
                     </option>
 
                     <option value="처방기준">
                         처방기준
+                        (원내조제+원외처방)
                     </option>
 
                 </select>
@@ -187,37 +200,37 @@
             </div>
 
 
-            <div class="button-area">
+            <!-- 조회 버튼 -->
 
-                <button
-                    type="button"
-                    id="searchButton"
-                    class="primary-button"
-                >
-                    조회
-                </button>
-
-            </div>
+            <button
+                id="searchButton"
+                class="search-button"
+            >
+                조회
+            </button>
 
         </div>
 
     </section>
 
 
+
     <!-- 요약 -->
+
     <section class="summary">
+
 
         <div class="summary-card">
 
-            <div class="summary-label">
+            <div class="summary-title">
                 총 수량
             </div>
 
             <div
-                class="summary-value"
                 id="totalQuantity"
+                class="summary-value"
             >
-                -
+                0
             </div>
 
         </div>
@@ -225,15 +238,31 @@
 
         <div class="summary-card">
 
-            <div class="summary-label">
+            <div class="summary-title">
                 총 금액
             </div>
 
             <div
-                class="summary-value"
                 id="totalAmount"
+                class="summary-value"
             >
-                -
+                0
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                조회 건수
+            </div>
+
+            <div
+                id="totalCount"
+                class="summary-value"
+            >
+                0
             </div>
 
         </div>
@@ -241,30 +270,65 @@
     </section>
 
 
+
     <!-- 차트 -->
+
     <section class="card">
 
-        <h2>전국 시도별 사용실적</h2>
+        <div class="section-header">
 
-        <div class="chart-container">
+            <h2>
+                시도별 사용량
+            </h2>
 
-            <canvas id="usageChart"></canvas>
+            <span>
+                수량 기준
+            </span>
+
+        </div>
+
+
+        <div
+            id="usageChart"
+            class="chart"
+        >
+
+            <div class="chart-empty">
+                조회 버튼을 눌러주세요.
+            </div>
 
         </div>
 
     </section>
 
 
+
     <!-- 조회 결과 -->
+
     <section class="card">
 
-        <div class="table-header">
+        <div class="section-header">
 
-            <h2>조회 결과</h2>
+            <h2>
+                조회 결과
+            </h2>
 
-            <span id="resultCount">
-                0건
-            </span>
+
+            <div class="result-actions">
+
+                <span id="resultCount">
+                    0건
+                </span>
+
+
+                <button
+                    id="excelButton"
+                    class="excel-button"
+                >
+                    엑셀 다운로드
+                </button>
+
+            </div>
 
         </div>
 
@@ -277,11 +341,33 @@
 
                     <tr>
 
-                        <th>진료년월</th>
-                        <th>시도</th>
-                        <th>조제·처방구분</th>
-                        <th>수량</th>
-                        <th>금액</th>
+                        <th>
+                            성분코드
+                        </th>
+
+                        <th>
+                            성분명
+                        </th>
+
+                        <th>
+                            진료년월
+                        </th>
+
+                        <th>
+                            시도
+                        </th>
+
+                        <th>
+                            조제·처방구분
+                        </th>
+
+                        <th>
+                            수량
+                        </th>
+
+                        <th>
+                            금액
+                        </th>
 
                     </tr>
 
@@ -293,7 +379,7 @@
                     <tr>
 
                         <td
-                            colspan="5"
+                            colspan="7"
                             class="empty"
                         >
                             조회 결과가 없습니다.
@@ -309,12 +395,20 @@
 
     </section>
 
+
 </main>
 
 
+<!-- 엑셀 다운로드용 SheetJS -->
+
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+
+<!-- JavaScript -->
+
 <script src="js/app.js"></script>
+
 
 </body>
 
 </html>
-```

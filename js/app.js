@@ -1,550 +1,259 @@
-```javascript
-// ============================================
-// 전국 의약품 사용실적 조회
-// ============================================
+let healthData = [];
 
 
-// ============================================
-// 테스트 성분 데이터
-// ============================================
-
-const ingredientData = [
-    {
-        code: "100101ACH",
-        name: "아세트아미노펜"
-    },
-    {
-        code: "100201ACH",
-        name: "이부프로펜"
-    },
-    {
-        code: "100301ACH",
-        name: "아목시실린"
-    },
-    {
-        code: "100401ACH",
-        name: "클로르페니라민"
-    },
-    {
-        code: "100501ACH",
-        name: "오메프라졸"
-    }
-];
+// 현재 조회된 결과
+let currentResult = [];
 
 
-// ============================================
-// 테스트 사용실적 데이터
-// ============================================
+// ==========================================
+// CSV 불러오기
+// ==========================================
 
-const usageData = [
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "서울",
-        "조제·처방구분": "조제기준",
-        수량: 1250000,
-        금액: 450000000
-    },
+async function loadData() {
 
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "부산",
-        "조제·처방구분": "조제기준",
-        수량: 850000,
-        금액: 310000000
-    },
+    try {
 
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "대구",
-        "조제·처방구분": "조제기준",
-        수량: 720000,
-        금액: 270000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "인천",
-        "조제·처방구분": "조제기준",
-        수량: 690000,
-        금액: 250000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "광주",
-        "조제·처방구분": "조제기준",
-        수량: 400000,
-        금액: 150000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "대전",
-        "조제·처방구분": "조제기준",
-        수량: 450000,
-        금액: 170000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "울산",
-        "조제·처방구분": "조제기준",
-        수량: 280000,
-        금액: 100000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "세종",
-        "조제·처방구분": "조제기준",
-        수량: 120000,
-        금액: 45000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "경기",
-        "조제·처방구분": "조제기준",
-        수량: 2100000,
-        금액: 780000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "강원",
-        "조제·처방구분": "조제기준",
-        수량: 300000,
-        금액: 110000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "충북",
-        "조제·처방구분": "조제기준",
-        수량: 350000,
-        금액: 130000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "충남",
-        "조제·처방구분": "조제기준",
-        수량: 420000,
-        금액: 160000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "전북",
-        "조제·처방구분": "조제기준",
-        수량: 380000,
-        금액: 140000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "전남",
-        "조제·처방구분": "조제기준",
-        수량: 290000,
-        금액: 105000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "경북",
-        "조제·처방구분": "조제기준",
-        수량: 410000,
-        금액: 155000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "경남",
-        "조제·처방구분": "조제기준",
-        수량: 530000,
-        금액: 195000000
-    },
-
-    {
-        진료년월: "2026-03",
-        성분코드: "100101ACH",
-        성분명칭: "아세트아미노펜",
-        시도: "제주",
-        "조제·처방구분": "조제기준",
-        수량: 150000,
-        금액: 55000000
-    }
-];
+        const response =
+            await fetch("health_data.csv");
 
 
-// ============================================
-// 전역 변수
-// ============================================
+        if (!response.ok) {
 
-let selectedIngredient = null;
+            throw new Error(
+                "CSV 파일을 찾을 수 없습니다."
+            );
 
-let usageChart = null;
-
-
-// ============================================
-// 페이지 로드
-// ============================================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        setDefaultMonth();
-
-        setupEvents();
-
-    }
-);
+        }
 
 
-// ============================================
-// 이벤트 등록
-// ============================================
+        const text =
+            await response.text();
 
-function setupEvents() {
 
-    const ingredientSearchButton =
-        document.getElementById(
-            "ingredientSearchButton"
+        healthData =
+            parseCSV(text);
+
+
+        console.log(
+            "CSV 데이터 로드 완료"
         );
 
 
-    const searchButton =
-        document.getElementById(
-            "searchButton"
+        console.log(
+            "데이터 개수:",
+            healthData.length
         );
 
 
-    ingredientSearchButton.addEventListener(
-        "click",
-        searchIngredient
-    );
+    } catch (error) {
+
+        console.error(
+            "데이터 로드 실패:",
+            error
+        );
 
 
-    searchButton.addEventListener(
-        "click",
-        searchUsage
-    );
+        alert(
+            "health_data.csv 파일을 불러오지 못했습니다."
+        );
+
+    }
 
 }
 
 
-// ============================================
-// 기본 날짜
-// ============================================
+// ==========================================
+// CSV 파싱
+// ==========================================
 
-function setDefaultMonth() {
+function parseCSV(text) {
 
-    const monthInput =
-        document.getElementById(
-            "month"
-        );
+    const lines =
+        text
+            .trim()
+            .split(/\r?\n/);
 
 
-    monthInput.value = "2026-03";
+    if (lines.length < 2) {
+
+        return [];
+
+    }
+
+
+    const headers =
+        lines[0]
+            .split(",")
+            .map(
+                value =>
+                    value.trim()
+            );
+
+
+    return lines
+        .slice(1)
+        .map(line => {
+
+            const values =
+                line.split(",");
+
+
+            const item = {};
+
+
+            headers.forEach(
+                (header, index) => {
+
+                    item[header] =
+                        values[index]
+                        ?.trim() || "";
+
+                }
+            );
+
+
+            item.수량 =
+                Number(
+                    item.수량 || 0
+                );
+
+
+            item.금액 =
+                Number(
+                    item.금액 || 0
+                );
+
+
+            return item;
+
+        });
 
 }
 
 
-// ============================================
-// 성분 검색
-// ============================================
+// ==========================================
+// 조회
+// ==========================================
 
-function searchIngredient() {
+function searchData() {
 
     const code =
         document
-            .getElementById("ingredientCode")
+            .getElementById(
+                "ingredientCode"
+            )
             .value
             .trim();
 
 
     const name =
         document
-            .getElementById("ingredientName")
+            .getElementById(
+                "ingredientName"
+            )
             .value
             .trim();
 
 
-    if (code === "" && name === "") {
-
-        alert(
-            "성분코드 또는 성분명칭을 입력해주세요."
-        );
-
-        return;
-    }
-
-
-    const result =
-        ingredientData.filter(
-            function (item) {
-
-                const codeMatch =
-                    code === ""
-                    ||
-                    item.code
-                        .toLowerCase()
-                        .includes(
-                            code.toLowerCase()
-                        );
-
-
-                const nameMatch =
-                    name === ""
-                    ||
-                    item.name.includes(name);
-
-
-                return codeMatch && nameMatch;
-
-            }
-        );
-
-
-    renderIngredientResult(result);
-
-}
-
-
-// ============================================
-// 성분 검색 결과
-// ============================================
-
-function renderIngredientResult(data) {
-
-    const container =
-        document.getElementById(
-            "ingredientResult"
-        );
-
-
-    container.innerHTML = "";
-
-
-    if (data.length === 0) {
-
-        container.innerHTML = `
-            <div class="empty">
-                검색된 성분이 없습니다.
-            </div>
-        `;
-
-        return;
-    }
-
-
-    data.forEach(
-        function (item) {
-
-            const element =
-                document.createElement("div");
-
-
-            element.className =
-                "ingredient-item";
-
-
-            element.innerHTML = `
-                <div>
-
-                    <strong>
-                        ${item.code}
-                    </strong>
-
-                    <span>
-                        ${item.name}
-                    </span>
-
-                </div>
-
-                <button
-                    type="button"
-                    class="select-button"
-                >
-                    선택
-                </button>
-            `;
-
-
-            const selectButton =
-                element.querySelector(
-                    ".select-button"
-                );
-
-
-            selectButton.addEventListener(
-                "click",
-                function () {
-
-                    selectIngredient(item);
-
-                }
-            );
-
-
-            container.appendChild(element);
-
-        }
-    );
-
-}
-
-
-// ============================================
-// 성분 선택
-// ============================================
-
-function selectIngredient(item) {
-
-    selectedIngredient = item;
-
-
-    const container =
-        document.getElementById(
-            "selectedIngredient"
-        );
-
-
-    container.innerHTML = `
-        <div class="selected-content">
-
-            <span class="selected-code">
-                ${item.code}
-            </span>
-
-            <span class="selected-name">
-                ${item.name}
-            </span>
-
-        </div>
-    `;
-
-}
-
-
-// ============================================
-// 사용실적 조회
-// ============================================
-
-function searchUsage() {
-
-    if (selectedIngredient === null) {
-
-        alert(
-            "먼저 성분을 선택해주세요."
-        );
-
-        return;
-    }
-
-
-    const month =
-        document
-            .getElementById("month")
-            .value;
-
-
     const region =
         document
-            .getElementById("region")
+            .getElementById(
+                "region"
+            )
             .value;
 
 
-    const usageType =
+    const prescriptionType =
         document
-            .getElementById("usageType")
+            .getElementById(
+                "prescriptionType"
+            )
             .value;
 
 
-    if (month === "") {
-
-        alert(
-            "진료년월을 선택해주세요."
-        );
-
-        return;
-    }
-
+    // 데이터 필터링
 
     const result =
-        usageData.filter(
-            function (item) {
-
-                const ingredientMatch =
-                    item.성분코드
-                    ===
-                    selectedIngredient.code;
+        healthData.filter(item => {
 
 
-                const monthMatch =
-                    item.진료년월
-                    ===
-                    month;
+            // 성분코드
+
+            const codeMatch =
+                code === ""
+                ||
+                String(
+                    item.성분코드 || ""
+                )
+                    .includes(code);
 
 
-                const typeMatch =
-                    item["조제·처방구분"]
-                    ===
-                    usageType;
+            // 성분명
+
+            const nameMatch =
+                name === ""
+                ||
+                String(
+                    item.성분명 || ""
+                )
+                    .toLowerCase()
+                    .includes(
+                        name.toLowerCase()
+                    );
 
 
-                const regionMatch =
-                    region === "전체"
-                    ||
-                    item.시도 === region;
+            // 시도
+
+            const regionMatch =
+                region === "전체"
+                ||
+                item.시도 === region;
 
 
-                return (
-                    ingredientMatch
-                    &&
-                    monthMatch
-                    &&
-                    typeMatch
-                    &&
-                    regionMatch
-                );
+            // 조제·처방구분
 
-            }
-        );
+            // 조제·처방구분
+const itemType =
+    String(
+        item["조제·처방구분"] || ""
+    ).trim();
 
+let prescriptionMatch = true;
+
+if (prescriptionType === "조제기준") {
+
+    prescriptionMatch =
+        itemType.includes("조제기준");
+
+}
+
+if (prescriptionType === "처방기준") {
+
+    prescriptionMatch =
+        itemType.includes("처방기준");
+
+}
+
+
+            return (
+                codeMatch
+                &&
+                nameMatch
+                &&
+                regionMatch
+                &&
+                prescriptionMatch
+            );
+
+        });
+
+
+    // 현재 조회 결과 저장
+
+    currentResult = result;
+
+
+    // 화면 출력
 
     renderTable(result);
 
@@ -552,12 +261,20 @@ function searchUsage() {
 
     renderChart(result);
 
+
+    document
+        .getElementById(
+            "resultCount"
+        )
+        .textContent =
+        `${result.length.toLocaleString()}건`;
+
 }
 
 
-// ============================================
+// ==========================================
 // 결과 테이블
-// ============================================
+// ==========================================
 
 function renderTable(data) {
 
@@ -567,17 +284,7 @@ function renderTable(data) {
         );
 
 
-    const count =
-        document.getElementById(
-            "resultCount"
-        );
-
-
     table.innerHTML = "";
-
-
-    count.textContent =
-        `${data.length}건`;
 
 
     if (data.length === 0) {
@@ -586,60 +293,69 @@ function renderTable(data) {
             <tr>
 
                 <td
-                    colspan="5"
+                    colspan="7"
                     class="empty"
                 >
-                    조회된 데이터가 없습니다.
+                    조회 결과가 없습니다.
                 </td>
 
             </tr>
         `;
 
         return;
+
     }
 
 
-    data.forEach(
-        function (item) {
+    data.forEach(item => {
 
-            const row =
-                document.createElement("tr");
-
-
-            row.innerHTML = `
-                <td>
-                    ${item.진료년월}
-                </td>
-
-                <td>
-                    ${item.시도}
-                </td>
-
-                <td>
-                    ${item["조제·처방구분"]}
-                </td>
-
-                <td>
-                    ${formatNumber(item.수량)}
-                </td>
-
-                <td>
-                    ${formatNumber(item.금액)}
-                </td>
-            `;
+        const row =
+            document.createElement(
+                "tr"
+            );
 
 
-            table.appendChild(row);
+        row.innerHTML = `
+            <td>
+                ${item.성분코드 || ""}
+            </td>
 
-        }
-    );
+            <td>
+                ${item.성분명 || ""}
+            </td>
+
+            <td>
+                ${item.진료년월 || ""}
+            </td>
+
+            <td>
+                ${item.시도 || ""}
+            </td>
+
+            <td>
+                ${item["조제·처방구분"] || ""}
+            </td>
+
+            <td>
+                ${formatNumber(item.수량)}
+            </td>
+
+            <td>
+                ${formatNumber(item.금액)}
+            </td>
+        `;
+
+
+        table.appendChild(row);
+
+    });
 
 }
 
 
-// ============================================
+// ==========================================
 // 요약
-// ============================================
+// ==========================================
 
 function renderSummary(data) {
 
@@ -648,155 +364,271 @@ function renderSummary(data) {
     let totalAmount = 0;
 
 
-    data.forEach(
-        function (item) {
+    data.forEach(item => {
 
-            totalQuantity +=
-                Number(item.수량);
+        totalQuantity +=
+            Number(item.수량) || 0;
 
 
-            totalAmount +=
-                Number(item.금액);
+        totalAmount +=
+            Number(item.금액) || 0;
 
-        }
-    );
+    });
 
 
     document
-        .getElementById("totalQuantity")
+        .getElementById(
+            "totalQuantity"
+        )
         .textContent =
-        formatNumber(totalQuantity);
+        formatNumber(
+            totalQuantity
+        );
 
 
     document
-        .getElementById("totalAmount")
+        .getElementById(
+            "totalAmount"
+        )
         .textContent =
-        formatNumber(totalAmount);
+        formatNumber(
+            totalAmount
+        );
+
+
+    document
+        .getElementById(
+            "totalCount"
+        )
+        .textContent =
+        formatNumber(
+            data.length
+        );
 
 }
 
 
-// ============================================
-// 차트
-// ============================================
+// ==========================================
+// 시도별 차트
+// ==========================================
 
 function renderChart(data) {
 
-    const canvas =
+    const chart =
         document.getElementById(
             "usageChart"
         );
 
 
-    if (usageChart !== null) {
-
-        usageChart.destroy();
-
-        usageChart = null;
-
-    }
+    chart.innerHTML = "";
 
 
     if (data.length === 0) {
+
+        chart.innerHTML = `
+            <div class="chart-empty">
+                조회 결과가 없습니다.
+            </div>
+        `;
 
         return;
 
     }
 
 
-    const labels =
-        data.map(
-            function (item) {
+    const regionData = {};
 
-                return item.시도;
 
-            }
+    data.forEach(item => {
+
+        const region =
+            item.시도;
+
+
+        if (!regionData[region]) {
+
+            regionData[region] = 0;
+
+        }
+
+
+        regionData[region] +=
+            Number(item.수량) || 0;
+
+    });
+
+
+    const values =
+        Object.values(
+            regionData
         );
 
 
-    const quantities =
-        data.map(
-            function (item) {
-
-                return Number(item.수량);
-
-            }
+    const maxValue =
+        Math.max(
+            ...values,
+            1
         );
 
 
-    usageChart =
-        new Chart(
-            canvas,
-            {
-                type: "bar",
+    Object.entries(
+        regionData
+    ).forEach(
+        ([region, value]) => {
 
-                data: {
+            const item =
+                document.createElement(
+                    "div"
+                );
 
-                    labels: labels,
 
-                    datasets: [
-                        {
-                            label: "수량",
+            item.className =
+                "bar-item";
 
-                            data: quantities
-                        }
-                    ]
 
-                },
+            const height =
+                (value / maxValue) * 280;
 
-                options: {
 
-                    responsive: true,
+            item.innerHTML = `
+                <div class="bar-value">
+                    ${formatNumber(value)}
+                </div>
 
-                    maintainAspectRatio: false,
+                <div
+                    class="bar"
+                    style="height: ${height}px;"
+                ></div>
 
-                    plugins: {
+                <div class="bar-label">
+                    ${region}
+                </div>
+            `;
 
-                        legend: {
-                            display: true
-                        }
 
-                    },
+            chart.appendChild(item);
 
-                    scales: {
-
-                        y: {
-
-                            beginAtZero: true,
-
-                            ticks: {
-
-                                callback:
-                                    function (value) {
-
-                                        return formatNumber(
-                                            value
-                                        );
-
-                                    }
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-        );
+        }
+    );
 
 }
 
 
-// ============================================
-// 숫자 포맷
-// ============================================
+// ==========================================
+// 숫자 표시
+// ==========================================
 
 function formatNumber(value) {
 
-    return Number(value)
+    return Number(value || 0)
         .toLocaleString("ko-KR");
 
 }
-```
+
+
+// ==========================================
+// 엑셀 다운로드
+// ==========================================
+
+function downloadExcel() {
+
+    if (
+        currentResult.length === 0
+    ) {
+
+        alert(
+            "다운로드할 조회 결과가 없습니다."
+        );
+
+        return;
+
+    }
+
+
+    const excelData =
+        currentResult.map(
+            item => ({
+
+                "성분코드":
+                    item.성분코드,
+
+                "성분명":
+                    item.성분명,
+
+                "진료년월":
+                    item.진료년월,
+
+                "시도":
+                    item.시도,
+
+                "조제·처방구분":
+                    item["조제·처방구분"],
+
+                "수량":
+                    item.수량,
+
+                "금액":
+                    item.금액
+
+            })
+        );
+
+
+    const worksheet =
+        XLSX.utils.json_to_sheet(
+            excelData
+        );
+
+
+    const workbook =
+        XLSX.utils.book_new();
+
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        "조회결과"
+    );
+
+
+    XLSX.writeFile(
+        workbook,
+        "의약품_성분_사용실적.xlsx"
+    );
+
+}
+
+
+// ==========================================
+// 조회 버튼
+// ==========================================
+
+document
+    .getElementById(
+        "searchButton"
+    )
+    .addEventListener(
+        "click",
+        searchData
+    );
+
+
+// ==========================================
+// 엑셀 버튼
+// ==========================================
+
+document
+    .getElementById(
+        "excelButton"
+    )
+    .addEventListener(
+        "click",
+        downloadExcel
+    );
+
+
+// ==========================================
+// 페이지 시작
+// ==========================================
+
+loadData();
