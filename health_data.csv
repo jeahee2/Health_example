@@ -1,16 +1,106 @@
-﻿성분코드,성분명,시도,진료년월,수량,금액
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2025-01,917114,485853627
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2025-02,1050850,551781016
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2025-03,983840,505216481
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2025-04,1058548,536546752
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2025-05,893399,451076519
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2025-06,956599,484754828
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2025-07,1076812,552674025
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2025-08,1010939,515230672
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2025-09,1130344,579159935
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2025-10,835590,423214609
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2025-11,928484,471940179
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2025-12,1061416,536185976
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2026-01,1049234,533960796
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2026-02,888004,450885626
-234502ATB,tamoxifen citrate (as tamoxifen),서울,2026-03,1080275,555352855
+﻿성분코드,성분명,시도,시군구,진료년월,수량,금액
+109001ATB,anastrozole,강원,강릉시,2025-01,3218,9132684
+109001ATB,anastrozole,강원,강릉시,2025-02,2906,8246202
+109001ATB,anastrozole,강원,강릉시,2025-03,2430,6896340
+109001ATB,anastrozole,강원,강릉시,2025-04,4662,13230642
+109001ATB,anastrozole,강원,강릉시,2025-05,2375,6738882
+109001ATB,anastrozole,강원,강릉시,2025-06,2462,6985218
+109001ATB,anastrozole,강원,강릉시,2025-07,2909,8255742
+109001ATB,anastrozole,강원,강릉시,2025-08,2409,6836742
+109001ATB,anastrozole,강원,강릉시,2025-09,3073,8721174
+109001ATB,anastrozole,강원,강릉시,2025-10,3561,10095858
+109001ATB,anastrozole,강원,강릉시,2025-11,2725,7728762
+109001ATB,anastrozole,강원,강릉시,2025-12,2653,7529214
+109001ATB,anastrozole,강원,강릉시,2026-01,2796,7923864
+109001ATB,anastrozole,강원,강릉시,2026-02,1778,4987304
+109001ATB,anastrozole,강원,강릉시,2026-03,2055,5794414
+109001ATB,anastrozole,강원,동해시,2025-01,0,0
+109001ATB,anastrozole,강원,동해시,2025-02,60,167700
+109001ATB,anastrozole,강원,동해시,2025-03,0,0
+109001ATB,anastrozole,강원,동해시,2025-04,0,0
+109001ATB,anastrozole,강원,동해시,2025-05,130,363350
+109001ATB,anastrozole,강원,동해시,2025-06,0,0
+109001ATB,anastrozole,강원,동해시,2025-07,15,41925
+109001ATB,anastrozole,강원,동해시,2025-08,0,0
+109001ATB,anastrozole,강원,동해시,2025-09,0,0
+109001ATB,anastrozole,강원,동해시,2025-10,0,0
+109001ATB,anastrozole,강원,동해시,2025-11,0,0
+109001ATB,anastrozole,강원,동해시,2025-12,0,0
+109001ATB,anastrozole,강원,동해시,2026-01,0,0
+109001ATB,anastrozole,강원,동해시,2026-02,60,167700
+109001ATB,anastrozole,강원,동해시,2026-03,84,234780
+109001ATB,anastrozole,강원,삼척시,2025-01,0,0
+109001ATB,anastrozole,강원,삼척시,2025-02,0,0
+109001ATB,anastrozole,강원,삼척시,2025-03,0,0
+109001ATB,anastrozole,강원,삼척시,2025-04,104,295464
+109001ATB,anastrozole,강원,삼척시,2025-05,0,0
+109001ATB,anastrozole,강원,삼척시,2025-06,0,0
+109001ATB,anastrozole,강원,삼척시,2025-07,90,255690
+109001ATB,anastrozole,강원,삼척시,2025-08,0,0
+109001ATB,anastrozole,강원,삼척시,2025-09,0,0
+109001ATB,anastrozole,강원,삼척시,2025-10,0,0
+109001ATB,anastrozole,강원,삼척시,2025-11,0,0
+109001ATB,anastrozole,강원,삼척시,2025-12,0,0
+109001ATB,anastrozole,강원,삼척시,2026-01,0,0
+109001ATB,anastrozole,강원,삼척시,2026-02,0,0
+109001ATB,anastrozole,강원,삼척시,2026-03,0,0
+109001ATB,anastrozole,강원,속초시,2025-01,0,0
+109001ATB,anastrozole,강원,속초시,2025-02,0,0
+109001ATB,anastrozole,강원,속초시,2025-03,0,0
+109001ATB,anastrozole,강원,속초시,2025-04,28,78260
+109001ATB,anastrozole,강원,속초시,2025-05,0,0
+109001ATB,anastrozole,강원,속초시,2025-06,0,0
+109001ATB,anastrozole,강원,속초시,2025-07,0,0
+109001ATB,anastrozole,강원,속초시,2025-08,0,0
+109001ATB,anastrozole,강원,속초시,2025-09,0,0
+109001ATB,anastrozole,강원,속초시,2025-10,0,0
+109001ATB,anastrozole,강원,속초시,2025-11,0,0
+109001ATB,anastrozole,강원,속초시,2025-12,0,0
+109001ATB,anastrozole,강원,속초시,2026-01,0,0
+109001ATB,anastrozole,강원,속초시,2026-02,0,0
+109001ATB,anastrozole,강원,속초시,2026-03,0,0
+109001ATB,anastrozole,강원,원주시,2025-01,4187,11868587
+109001ATB,anastrozole,강원,원주시,2025-02,4403,12508923
+109001ATB,anastrozole,강원,원주시,2025-03,3422,9695222
+109001ATB,anastrozole,강원,원주시,2025-04,4539,12882879
+109001ATB,anastrozole,강원,원주시,2025-05,4143,11746803
+109001ATB,anastrozole,강원,원주시,2025-06,6067,17204607
+109001ATB,anastrozole,강원,원주시,2025-07,6803,19300643
+109001ATB,anastrozole,강원,원주시,2025-08,5075,14391947
+109001ATB,anastrozole,강원,원주시,2025-09,6100,17310596
+109001ATB,anastrozole,강원,원주시,2025-10,6899,19583959
+109001ATB,anastrozole,강원,원주시,2025-11,4437,12598617
+109001ATB,anastrozole,강원,원주시,2025-12,9295,26370755
+109001ATB,anastrozole,강원,원주시,2026-01,8261,23424340
+109001ATB,anastrozole,강원,원주시,2026-02,4925,13981150
+109001ATB,anastrozole,강원,원주시,2026-03,7569,21485160
+109001ATB,anastrozole,강원,춘천시,2025-01,4561,12951486
+109001ATB,anastrozole,강원,춘천시,2025-02,3603,10232244
+109001ATB,anastrozole,강원,춘천시,2025-03,3235,9187095
+109001ATB,anastrozole,강원,춘천시,2025-04,4265,12112980
+109001ATB,anastrozole,강원,춘천시,2025-05,3746,10637088
+109001ATB,anastrozole,강원,춘천시,2025-06,2201,6250758
+109001ATB,anastrozole,강원,춘천시,2025-07,4757,13507626
+109001ATB,anastrozole,강원,춘천시,2025-08,3251,9232638
+109001ATB,anastrozole,강원,춘천시,2025-09,3527,10015878
+109001ATB,anastrozole,강원,춘천시,2025-10,2870,8150730
+109001ATB,anastrozole,강원,춘천시,2025-11,2946,8366238
+109001ATB,anastrozole,강원,춘천시,2025-12,3616,10269054
+109001ATB,anastrozole,강원,춘천시,2026-01,3828,10860612
+109001ATB,anastrozole,강원,춘천시,2026-02,2225,6311950
+109001ATB,anastrozole,강원,춘천시,2026-03,3612,10249626
+109001ATB,anastrozole,강원,태백시,2025-01,0,0
+109001ATB,anastrozole,강원,태백시,2025-02,0,0
+109001ATB,anastrozole,강원,태백시,2025-03,90,237960
+109001ATB,anastrozole,강원,태백시,2025-04,0,0
+109001ATB,anastrozole,강원,태백시,2025-05,0,0
+109001ATB,anastrozole,강원,태백시,2025-06,0,0
+109001ATB,anastrozole,강원,태백시,2025-07,0,0
+109001ATB,anastrozole,강원,태백시,2025-08,0,0
+109001ATB,anastrozole,강원,태백시,2025-09,0,0
+109001ATB,anastrozole,강원,태백시,2025-10,0,0
+109001ATB,anastrozole,강원,태백시,2025-11,0,0
+109001ATB,anastrozole,강원,태백시,2025-12,0,0
+109001ATB,anastrozole,강원,태백시,2026-01,0,0
+109001ATB,anastrozole,강원,태백시,2026-02,0,0
+109001ATB,anastrozole,강원,태백시,2026-03,0,0

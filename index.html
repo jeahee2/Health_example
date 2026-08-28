@@ -67,18 +67,31 @@
             </div>
 
 
-            <!-- 성분명 -->
+            <!-- 조회 기간 (시작월 ~ 종료월) -->
 
             <div class="input-group">
 
-                <label for="ingredientName">
-                    성분명
+                <label for="startMonth">
+                    시작월
                 </label>
 
                 <input
-                    type="text"
-                    id="ingredientName"
-                    placeholder="성분명을 입력하세요"
+                    type="month"
+                    id="startMonth"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="endMonth">
+                    종료월
+                </label>
+
+                <input
+                    type="month"
+                    id="endMonth"
                 >
 
             </div>
@@ -171,35 +184,6 @@
             </div>
 
 
-            <!-- 조제·처방구분 -->
-
-            <div class="input-group">
-
-                <label for="prescriptionType">
-                    조제·처방구분
-                </label>
-
-                <select id="prescriptionType">
-
-                    <option value="전체">
-                        전체
-                    </option>
-
-                    <option value="조제기준">
-                        조제기준
-                        (원내조제+약국조제)
-                    </option>
-
-                    <option value="처방기준">
-                        처방기준
-                        (원내조제+원외처방)
-                    </option>
-
-                </select>
-
-            </div>
-
-
             <!-- 조회 버튼 -->
 
             <button
@@ -278,7 +262,7 @@
         <div class="section-header">
 
             <h2>
-                시도별 사용량
+                시군구별 사용량
             </h2>
 
             <span>
@@ -338,39 +322,16 @@
             <table>
 
                 <thead>
-
                     <tr>
-
-                        <th>
-                            성분코드
-                        </th>
-
-                        <th>
-                            성분명
-                        </th>
-
-                        <th>
-                            진료년월
-                        </th>
-
-                        <th>
-                            시도
-                        </th>
-
-                        <th>
-                            조제·처방구분
-                        </th>
-
-                        <th>
-                            수량
-                        </th>
-
-                        <th>
-                            금액
-                        </th>
-
+                        <th>성분코드</th>
+                        <th>성분명</th>
+                        <th>연도</th>
+                        <th>진료년월</th>
+                        <th>시도</th>
+                        <th>시군구</th>
+                        <th>수량</th>
+                        <th>금액</th>
                     </tr>
-
                 </thead>
 
 
@@ -379,7 +340,7 @@
                     <tr>
 
                         <td
-                            colspan="7"
+                            colspan="8"
                             class="empty"
                         >
                             조회 결과가 없습니다.

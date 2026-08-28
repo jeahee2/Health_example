@@ -45,6 +45,9 @@ async function loadData() {
         );
 
 
+        populateYearOptions();
+
+
     } catch (error) {
 
         console.error(
@@ -132,6 +135,62 @@ function parseCSV(text) {
 
 
 // ==========================================
+// 기간(캘린더) 입력 범위 설정
+//    데이터에 있는 최소~최대 진료년월로
+//    시작월 / 종료월 <input type="month">의
+//    선택 가능 범위를 제한
+// ==========================================
+
+function populateYearOptions() {
+
+    const yearMonths =
+        healthData
+            .map(
+                item => item.진료년월
+            )
+            .filter(
+                value => value
+            )
+            .sort();
+
+
+    if (yearMonths.length === 0) {
+
+        return;
+
+    }
+
+
+    const minMonth =
+        yearMonths[0];
+
+    const maxMonth =
+        yearMonths[
+            yearMonths.length - 1
+        ];
+
+
+    const startInput =
+        document.getElementById(
+            "startMonth"
+        );
+
+    const endInput =
+        document.getElementById(
+            "endMonth"
+        );
+
+
+    startInput.min = minMonth;
+    startInput.max = maxMonth;
+
+    endInput.min = minMonth;
+    endInput.max = maxMonth;
+
+}
+
+
+// ==========================================
 // 조회
 // ==========================================
 
@@ -146,27 +205,25 @@ function searchData() {
             .trim();
 
 
-    const name =
+    const startMonth =
         document
             .getElementById(
-                "ingredientName"
+                "startMonth"
             )
-            .value
-            .trim();
+            .value;
+
+    const endMonth =
+        document
+            .getElementById(
+                "endMonth"
+            )
+            .value;
 
 
     const region =
         document
             .getElementById(
                 "region"
-            )
-            .value;
-
-
-    const prescriptionType =
-        document
-            .getElementById(
-                "prescriptionType"
             )
             .value;
 
@@ -188,21 +245,30 @@ function searchData() {
                     .includes(code);
 
 
-            // 성분명
+            // 조회 기간 (시작월 ~ 종료월)
+            //    진료년월이 "YYYY-MM" 형식으로
+            //    고정되어 있어 문자열 비교로
+            //    범위 판정이 가능함
 
-            const nameMatch =
-                name === ""
-                ||
+            const itemMonth =
                 String(
-                    item.성분명 || ""
-                )
-                    .toLowerCase()
-                    .includes(
-                        name.toLowerCase()
-                    );
+                    item.진료년월 || ""
+                );
+
+            const startMatch =
+                startMonth === ""
+                ||
+                itemMonth >= startMonth;
+
+            const endMatch =
+                endMonth === ""
+                ||
+                itemMonth <= endMonth;
 
 
             // 시도
+            // (시군구는 별도 검색 없이,
+            //  시도 검색 결과에 자동으로 함께 표시됨)
 
             const regionMatch =
                 region === "전체"
@@ -210,39 +276,14 @@ function searchData() {
                 item.시도 === region;
 
 
-            // 조제·처방구분
-
-            // 조제·처방구분
-const itemType =
-    String(
-        item["조제·처방구분"] || ""
-    ).trim();
-
-let prescriptionMatch = true;
-
-if (prescriptionType === "조제기준") {
-
-    prescriptionMatch =
-        itemType.includes("조제기준");
-
-}
-
-if (prescriptionType === "처방기준") {
-
-    prescriptionMatch =
-        itemType.includes("처방기준");
-
-}
-
-
             return (
                 codeMatch
                 &&
-                nameMatch
+                startMatch
+                &&
+                endMatch
                 &&
                 regionMatch
-                &&
-                prescriptionMatch
             );
 
         });
@@ -325,6 +366,10 @@ function renderTable(data) {
             </td>
 
             <td>
+                ${item.연도 || ""}
+            </td>
+
+            <td>
                 ${item.진료년월 || ""}
             </td>
 
@@ -333,7 +378,7 @@ function renderTable(data) {
             </td>
 
             <td>
-                ${item["조제·처방구분"] || ""}
+                ${item.시군구 || ""}
             </td>
 
             <td>
@@ -436,23 +481,23 @@ function renderChart(data) {
     }
 
 
-    const regionData = {};
+    const districtData = {};
 
 
     data.forEach(item => {
 
-        const region =
-            item.시도;
+        const district =
+            item.시군구;
 
 
-        if (!regionData[region]) {
+        if (!districtData[district]) {
 
-            regionData[region] = 0;
+            districtData[district] = 0;
 
         }
 
 
-        regionData[region] +=
+        districtData[district] +=
             Number(item.수량) || 0;
 
     });
@@ -460,7 +505,7 @@ function renderChart(data) {
 
     const values =
         Object.values(
-            regionData
+            districtData
         );
 
 
@@ -472,9 +517,9 @@ function renderChart(data) {
 
 
     Object.entries(
-        regionData
+        districtData
     ).forEach(
-        ([region, value]) => {
+        ([district, value]) => {
 
             const item =
                 document.createElement(
@@ -501,7 +546,7 @@ function renderChart(data) {
                 ></div>
 
                 <div class="bar-label">
-                    ${region}
+                    ${district}
                 </div>
             `;
 
@@ -555,14 +600,17 @@ function downloadExcel() {
                 "성분명":
                     item.성분명,
 
+                "연도":
+                    item.연도,
+
                 "진료년월":
                     item.진료년월,
 
                 "시도":
                     item.시도,
 
-                "조제·처방구분":
-                    item["조제·처방구분"],
+                "시군구":
+                    item.시군구,
 
                 "수량":
                     item.수량,
