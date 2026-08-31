@@ -9,7 +9,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>keeps 의약품 성분 사용실적 조회</title>
+    <title>의약품 성분 사용실적 조회</title>
 
     <link
         rel="stylesheet"
@@ -20,351 +20,435 @@
 
 <body>
 
-<header class="header">
 
-    <div class="header-content">
+    <!-- ==========================================
+         Header
+    ========================================== -->
 
-        <h1>
-            keeps 의약품 성분 사용실적 조회
-        </h1>
+    <header class="header">
 
-        <p>
-            전국 시도별 의약품 사용실적을 조회합니다.
-        </p>
+        <div class="header-content">
 
-    </div>
+            <h1>
+                의약품 성분 사용실적 조회
+            </h1>
 
-</header>
-
-
-<main class="container">
-
-
-    <!-- 조회 조건 -->
-    <section class="card">
-
-        <h2>
-            조회
-        </h2>
-
-        <div class="search-box">
-
-
-            <!-- 성분코드 -->
-
-            <div class="input-group">
-
-                <label for="ingredientCode">
-                    성분코드
-                </label>
-
-                <input
-                    type="text"
-                    id="ingredientCode"
-                    placeholder="성분코드를 입력하세요"
-                >
-
-            </div>
-
-
-            <!-- 조회 기간 (시작월 ~ 종료월) -->
-
-            <div class="input-group">
-
-                <label for="startMonth">
-                    진료년원
-                </label>
-
-                <input
-                    type="month"
-                    id="startMonth"
-                >
-
-            </div>
-
-
-            <div class="input-group">
-
-
-                <input
-                    type="month"
-                    id="endMonth"
-                >
-
-            </div>
-
-
-            <!-- 시도 -->
-
-            <div class="input-group">
-
-                <label for="region">
-                    시도
-                </label>
-
-                <select id="region">
-
-                    <option value="전체">
-                        전국
-                    </option>
-
-                    <option value="서울">
-                        서울
-                    </option>
-
-                    <option value="부산">
-                        부산
-                    </option>
-
-                    <option value="대구">
-                        대구
-                    </option>
-
-                    <option value="인천">
-                        인천
-                    </option>
-
-                    <option value="광주">
-                        광주
-                    </option>
-
-                    <option value="대전">
-                        대전
-                    </option>
-
-                    <option value="울산">
-                        울산
-                    </option>
-
-                    <option value="세종">
-                        세종
-                    </option>
-
-                    <option value="경기">
-                        경기
-                    </option>
-
-                    <option value="강원">
-                        강원
-                    </option>
-
-                    <option value="충북">
-                        충북
-                    </option>
-
-                    <option value="충남">
-                        충남
-                    </option>
-
-                    <option value="전북">
-                        전북
-                    </option>
-
-                    <option value="전남">
-                        전남
-                    </option>
-
-                    <option value="경북">
-                        경북
-                    </option>
-
-                    <option value="경남">
-                        경남
-                    </option>
-
-                    <option value="제주">
-                        제주
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- 조회 버튼 -->
-
-            <button
-                id="searchButton"
-                class="search-button"
-            >
-                조회
-            </button>
+            <p>
+                성분별 의약품 사용량 및 금액을 조회할 수 있습니다.
+            </p>
 
         </div>
 
-    </section>
+    </header>
 
 
 
-    <!-- 요약 -->
+    <!-- ==========================================
+         Main
+    ========================================== -->
 
-    <section class="summary">
-
-
-        <div class="summary-card">
-
-            <div class="summary-title">
-                총 수량
-            </div>
-
-            <div
-                id="totalQuantity"
-                class="summary-value"
-            >
-                0
-            </div>
-
-        </div>
+    <main class="container">
 
 
-        <div class="summary-card">
+        <!-- ======================================
+             조회 조건
+        ======================================= -->
 
-            <div class="summary-title">
-                총 금액
-            </div>
+        <section class="card search-card">
 
-            <div
-                id="totalAmount"
-                class="summary-value"
-            >
-                0
-            </div>
-
-        </div>
+            <div class="search-form">
 
 
-        <div class="summary-card">
+                <div class="input-row">
+                    <!-- 성분코드 -->
 
-            <div class="summary-title">
-                조회 건수
-            </div>
+                    <div class="input-group">
 
-            <div
-                id="totalCount"
-                class="summary-value"
-            >
-                0
-            </div>
+                        <label for="ingredientCode">
+                            성분코드
+                        </label>
 
-        </div>
+                        <input
+                            type="text"
+                            id="ingredientCode"
+                            placeholder="성분코드를 입력하세요"
+                        >
 
-    </section>
+                    </div>
+
+                    <!-- 성분명 -->
+
+                    <div class="input-group">
+
+                        <label for="ingredientName">
+                            성분명
+                        </label>
+                        <input
+                            type="text"
+                            id="ingredientName"
+                            placeholder="성분명을 입력하세요"
+                        >
+
+                    </div>
+
+
+                </div>
 
 
 
-    <!-- 차트 -->
+                <!-- ==================================
+                     진료년월
+                =================================== -->
 
-    <section class="card">
+                <div class="input-group date-group">
 
-        <div class="section-header">
+                    <label>
+                        진료년월
+                    </label>
 
-            <h2>
-                시군구별 사용량
-            </h2>
+                    <div class="date-inputs">
 
-            <span>
-                수량 기준
-            </span>
+                        <input
+                            type="month"
+                            id="startMonth"
+                        >
 
-        </div>
+                        <span>
+                            ~
+                        </span>
 
+                        <input
+                            type="month"
+                            id="endMonth"
+                        >
 
-        <div
-            id="usageChart"
-            class="chart"
-        >
+                    </div>
 
-            <div class="chart-empty">
-                조회 버튼을 눌러주세요.
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- 조회 결과 -->
-
-    <section class="card">
-
-        <div class="section-header">
-
-            <h2>
-                조회 결과
-            </h2>
+                </div>
 
 
-            <div class="result-actions">
 
-                <span id="resultCount">
-                    0건
-                </span>
+                <!-- ==================================
+                     시도
+                =================================== -->
 
+                <div class="input-group">
+
+                    <label for="region">
+                        시도
+                    </label>
+
+                    <select id="region">
+
+                        <option value="전체">
+                            전국
+                        </option>
+
+                        <option value="서울">
+                            서울
+                        </option>
+
+                        <option value="부산">
+                            부산
+                        </option>
+
+                        <option value="대구">
+                            대구
+                        </option>
+
+                        <option value="인천">
+                            인천
+                        </option>
+
+                        <option value="광주">
+                            광주
+                        </option>
+
+                        <option value="대전">
+                            대전
+                        </option>
+
+                        <option value="울산">
+                            울산
+                        </option>
+
+                        <option value="세종">
+                            세종
+                        </option>
+
+                        <option value="경기">
+                            경기
+                        </option>
+
+                        <option value="강원">
+                            강원
+                        </option>
+
+                        <option value="충북">
+                            충북
+                        </option>
+
+                        <option value="충남">
+                            충남
+                        </option>
+
+                        <option value="전북">
+                            전북
+                        </option>
+
+                        <option value="전남">
+                            전남
+                        </option>
+
+                        <option value="경북">
+                            경북
+                        </option>
+
+                        <option value="경남">
+                            경남
+                        </option>
+
+                        <option value="제주">
+                            제주
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- ==================================
+                     조회 버튼
+                =================================== -->
 
                 <button
-                    id="excelButton"
-                    class="excel-button"
+                    type="button"
+                    id="searchButton"
+                    class="search-button"
                 >
-                    엑셀 다운로드
+                    🔍 조회
                 </button>
+
 
             </div>
 
-        </div>
+        </section>
 
 
-        <div class="table-wrapper">
 
-            <table>
+        <!-- ==========================================
+             요약 정보
+        =========================================== -->
 
-                <thead>
-                    <tr>
-                        <th>성분코드</th>
-                        <th>성분명</th>
-                        <th>연도</th>
-                        <th>진료년월</th>
-                        <th>시도</th>
-                        <th>시군구</th>
-                        <th>수량</th>
-                        <th>금액</th>
-                    </tr>
-                </thead>
+        <section class="summary">
 
 
-                <tbody id="resultTable">
+            <!-- 총 수량 -->
 
-                    <tr>
+            <div class="summary-card">
 
-                        <td
-                            colspan="8"
-                            class="empty"
-                        >
-                            조회 결과가 없습니다.
-                        </td>
+                <div class="summary-title">
+                    총 수량
+                </div>
 
-                    </tr>
+                <div
+                    id="totalQuantity"
+                    class="summary-value"
+                >
+                    0
+                </div>
 
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
+            </div>
 
 
-</main>
+
+            <!-- 총 금액 -->
+
+            <div class="summary-card">
+
+                <div class="summary-title">
+                    총 금액
+                </div>
+
+                <div
+                    id="totalAmount"
+                    class="summary-value"
+                >
+                    0
+                </div>
+
+            </div>
 
 
-<!-- 엑셀 다운로드용 SheetJS -->
 
-<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+            <!-- 조회 건수 -->
+
+            <div class="summary-card">
+
+                <div class="summary-title">
+                    조회 건수
+                </div>
+
+                <div
+                    id="totalCount"
+                    class="summary-value"
+                >
+                    0
+                </div>
+
+            </div>
 
 
-<!-- JavaScript -->
+        </section>
 
-<script src="js/app.js"></script>
+
+
+        <!-- ==========================================
+             시군구별 사용량 차트
+        =========================================== -->
+
+        <section class="card">
+
+
+            <div class="section-header">
+
+                <h2>
+                    시군구별 사용량 현황
+                </h2>
+
+                <span>
+                    수량 기준
+                </span>
+
+            </div>
+
+
+            <div
+                id="usageChart"
+                class="chart"
+            >
+
+                <div class="chart-empty">
+                    조회 버튼을 눌러주세요.
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==========================================
+             상세 데이터
+        =========================================== -->
+
+        <section class="card">
+
+
+            <div class="section-header">
+
+
+                <h2>
+                    상세 데이터
+                </h2>
+
+
+                <div class="result-actions">
+
+                    <span>
+                        조회 결과
+                    </span>
+
+                    <button
+                        type="button"
+                        id="excelButton"
+                        class="excel-button"
+                    >
+                        Excel 다운로드
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                성분코드
+                            </th>
+
+                            <th>
+                                성분명
+                            </th>
+
+                            <th>
+                                시도
+                            </th>
+
+                            <th>
+                                시군구
+                            </th>
+
+                            <th>
+                                진료년월
+                            </th>
+
+                            <th>
+                                수량
+                            </th>
+
+                            <th>
+                                금액
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="resultTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="empty"
+                            >
+                                조회 버튼을 눌러주세요.
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ==========================================
+         JavaScript
+    =========================================== -->
+
+    <script src="js/app.js"></script>
 
 
 </body>
