@@ -183,6 +183,8 @@ body {
 .input-row {
     display: flex;
 
+    align-items: flex-end;
+
     gap: 14px;
 
     flex-wrap: wrap;
