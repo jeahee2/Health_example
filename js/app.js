@@ -47,6 +47,8 @@ async function loadData() {
 
         populateYearOptions();
 
+        populateRegionOptions();
+
 
     } catch (error) {
 
@@ -71,8 +73,13 @@ async function loadData() {
 
 function parseCSV(text) {
 
+    // 앞에 BOM(\uFEFF)이 남아있는 경우 제거
+    const cleanText =
+        text.replace(/^\uFEFF/, "");
+
+
     const lines =
-        text
+        cleanText
             .trim()
             .split(/\r?\n/);
 
@@ -191,6 +198,47 @@ function populateYearOptions() {
 
 
 // ==========================================
+// 시도 옵션 채우기
+//    데이터에 있는 시도 목록을 <select>에
+//    자동으로 채워서 실제로 필터링이 되게 함
+// ==========================================
+
+function populateRegionOptions() {
+
+    const regionSelect =
+        document.getElementById(
+            "region"
+        );
+
+
+    const regions =
+        [...new Set(
+            healthData
+                .map(item => item.시도)
+                .filter(value => value)
+        )].sort();
+
+
+    regions.forEach(region => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value = region;
+        option.textContent = region;
+
+        regionSelect.appendChild(
+            option
+        );
+
+    });
+
+}
+
+
+// ==========================================
 // 조회
 // ==========================================
 
@@ -200,6 +248,15 @@ function searchData() {
         document
             .getElementById(
                 "ingredientCode"
+            )
+            .value
+            .trim();
+
+
+    const name =
+        document
+            .getElementById(
+                "ingredientName"
             )
             .value
             .trim();
@@ -245,6 +302,17 @@ function searchData() {
                     .includes(code);
 
 
+            // 성분명
+
+            const nameMatch =
+                name === ""
+                ||
+                String(
+                    item.성분명 || ""
+                )
+                    .includes(name);
+
+
             // 조회 기간 (시작월 ~ 종료월)
             //    진료년월이 "YYYY-MM" 형식으로
             //    고정되어 있어 문자열 비교로
@@ -279,6 +347,8 @@ function searchData() {
             return (
                 codeMatch
                 &&
+                nameMatch
+                &&
                 startMatch
                 &&
                 endMatch
@@ -302,26 +372,20 @@ function searchData() {
 
     renderChart(result);
 
-
-    document
-        .getElementById(
-            "resultCount"
-        )
-        .textContent =
-        `${result.length.toLocaleString()}건`;
-
 }
 
 
 // ==========================================
 // 결과 테이블
+//    HTML <thead> 순서: 성분코드, 성분명, 시도,
+//    시군구, 진료년월, 수량, 금액 (7개)
 // ==========================================
 
 function renderTable(data) {
 
     const table =
         document.getElementById(
-            "resultTable"
+            "resultTableBody"
         );
 
 
@@ -366,19 +430,15 @@ function renderTable(data) {
             </td>
 
             <td>
-                ${item.연도 || ""}
-            </td>
-
-            <td>
-                ${item.진료년월 || ""}
-            </td>
-
-            <td>
                 ${item.시도 || ""}
             </td>
 
             <td>
                 ${item.시군구 || ""}
+            </td>
+
+            <td>
+                ${item.진료년월 || ""}
             </td>
 
             <td>
