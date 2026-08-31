@@ -1,19 +1,26 @@
+
+/* ==========================================
+   Reset
+========================================== */
+
 * {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     margin: 0;
-
     font-family:
-        Arial,
+        "Pretendard",
         "Noto Sans KR",
+        Arial,
         sans-serif;
 
-    background: #f5f6f8;
-
-    color: #222;
+    background: #f7f8fc;
+    color: #1f2937;
 }
 
 
@@ -22,36 +29,30 @@ body {
 ========================================== */
 
 .header {
-    background: white;
-
-    border-bottom: 1px solid #ddd;
+    background: #ffffff;
+    border-bottom: 1px solid #e8ebf0;
 }
-
 
 .header-content {
     width: 1200px;
-
-    max-width: 95%;
-
+    max-width: 94%;
     margin: 0 auto;
-
-    padding: 30px 0;
+    padding: 32px 0 28px;
 }
-
 
 .header h1 {
-    margin: 0 0 10px;
-
-    font-size: 28px;
+    margin: 0 0 8px;
+    font-size: 27px;
+    font-weight: 750;
+    letter-spacing: -0.7px;
+    color: #111827;
 }
-
 
 .header p {
     margin: 0;
-
-    color: #666;
-
-    font-size: 15px;
+    color: #8a93a3;
+    font-size: 14px;
+    letter-spacing: -0.2px;
 }
 
 
@@ -61,10 +62,8 @@ body {
 
 .container {
     width: 1200px;
-
-    max-width: 95%;
-
-    margin: 30px auto;
+    max-width: 94%;
+    margin: 28px auto 60px;
 }
 
 
@@ -73,22 +72,37 @@ body {
 ========================================== */
 
 .card {
-    background: white;
+    background: #ffffff;
 
-    border: 1px solid #ddd;
-
-    border-radius: 10px;
+    border: 1px solid #e9edf3;
+    border-radius: 14px;
 
     padding: 25px;
 
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 2px 8px rgba(15, 23, 42, 0.03);
+
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
+.card:hover {
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.06);
+}
 
 .card h2 {
     margin: 0 0 20px;
 
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 700;
+
+    color: #111827;
+
+    letter-spacing: -0.4px;
 }
 
 
@@ -101,11 +115,10 @@ body {
 
     align-items: flex-end;
 
-    gap: 15px;
+    gap: 14px;
 
     flex-wrap: wrap;
 }
-
 
 .input-group {
     display: flex;
@@ -115,61 +128,94 @@ body {
     gap: 7px;
 }
 
-
 .input-group label {
-    font-size: 14px;
+    font-size: 13px;
 
-    font-weight: bold;
+    font-weight: 600;
+
+    color: #596273;
 }
-
 
 .input-group input,
 .input-group select {
     width: 220px;
+    height: 44px;
 
-    height: 42px;
+    padding: 0 13px;
 
-    padding: 0 12px;
+    border: 1px solid #dfe3e9;
+    border-radius: 8px;
 
-    border: 1px solid #ccc;
+    background: #ffffff;
 
-    border-radius: 6px;
+    color: #293241;
 
     font-size: 14px;
 
-    background: white;
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
+.input-group input::placeholder {
+    color: #b2b8c2;
+}
+
+.input-group input:hover,
+.input-group select:hover {
+    border-color: #c5cbd5;
+}
 
 .input-group input:focus,
 .input-group select:focus {
-    outline: none;
+    border-color: #6366f1;
 
-    border-color: #555;
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.10);
 }
 
 
+/* ==========================================
+   Search Button
+========================================== */
+
 .search-button {
-    height: 42px;
+    height: 44px;
 
     padding: 0 25px;
 
     border: none;
+    border-radius: 8px;
 
-    border-radius: 6px;
+    background: #4f46e5;
 
-    background: #222;
-
-    color: white;
+    color: #ffffff;
 
     font-size: 14px;
+    font-weight: 600;
 
     cursor: pointer;
+
+    box-shadow:
+        0 3px 8px rgba(79, 70, 229, 0.20);
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
 }
 
-
 .search-button:hover {
-    opacity: 0.8;
+    background: #4338ca;
+
+    box-shadow:
+        0 5px 12px rgba(79, 70, 229, 0.25);
+}
+
+.search-button:active {
+    transform: translateY(1px);
 }
 
 
@@ -178,40 +224,71 @@ body {
 ========================================== */
 
 .summary {
-    display: flex;
+    display: grid;
 
-    gap: 20px;
+    grid-template-columns:
+        repeat(3, 1fr);
 
-    margin-bottom: 25px;
+    gap: 18px;
+
+    margin-bottom: 20px;
 }
-
 
 .summary-card {
-    flex: 1;
+    position: relative;
 
-    background: white;
+    background: #ffffff;
 
-    border: 1px solid #ddd;
+    border: 1px solid #e9edf3;
+    border-radius: 14px;
 
-    border-radius: 10px;
+    padding: 22px 24px;
 
-    padding: 22px;
+    overflow: hidden;
+
+    box-shadow:
+        0 2px 8px rgba(15, 23, 42, 0.03);
 }
 
+/* .summary-card::after {
+    content: "";
+
+    position: absolute;
+
+    right: -25px;
+    top: -25px;
+
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    background: #eef2ff;
+} */
 
 .summary-title {
-    color: #777;
+    position: relative;
+    z-index: 1;
 
-    font-size: 14px;
+    color: #8a93a3;
 
-    margin-bottom: 10px;
+    font-size: 13px;
+    font-weight: 500;
+
+    margin-bottom: 9px;
 }
 
-
 .summary-value {
-    font-size: 25px;
+    position: relative;
+    z-index: 1;
 
-    font-weight: bold;
+    font-size: 26px;
+
+    font-weight: 750;
+
+    color: #111827;
+
+    letter-spacing: -0.7px;
 }
 
 
@@ -225,18 +302,24 @@ body {
     align-items: center;
 
     justify-content: space-between;
-}
 
+    gap: 15px;
+}
 
 .section-header h2 {
     margin: 0;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    color: #111827;
 }
 
-
 .section-header > span {
-    color: #777;
+    color: #9299a7;
 
-    font-size: 14px;
+    font-size: 13px;
 }
 
 
@@ -249,29 +332,34 @@ body {
 
     align-items: center;
 
-    gap: 12px;
+    gap: 10px;
 }
-
 
 .excel-button {
     height: 36px;
 
-    padding: 0 15px;
+    padding: 0 14px;
 
-    border: 1px solid #56ad64;
+    border: 1px solid #dce4df;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
-    background: #56ad64;
+    background: #f3faf4;
+
+    color: #37834a;
 
     cursor: pointer;
 
     font-size: 13px;
+    font-weight: 600;
+
+    transition: all 0.2s ease;
 }
 
-
 .excel-button:hover {
-    background: #f5f5f5;
+    background: #e8f6ea;
+
+    border-color: #b9d8bf;
 }
 
 
@@ -286,26 +374,38 @@ body {
 
     align-items: flex-end;
 
-    gap: 12px;
+    gap: 14px;
 
-    padding: 30px 20px 20px;
+    padding: 35px 20px 20px;
 
-    border-bottom: 1px solid #ccc;
+    margin-top: 15px;
+
+    border: 1px solid #edf0f4;
+
+    border-radius: 10px;
+
+    background:
+        repeating-linear-gradient(
+            to top,
+            #ffffff 0,
+            #ffffff 74px,
+            #f0f2f5 75px
+        );
 
     overflow-x: auto;
 }
-
 
 .chart-empty {
     width: 100%;
 
     text-align: center;
 
-    color: #999;
+    color: #a4abb6;
 
     margin: auto;
-}
 
+    font-size: 14px;
+}
 
 .bar-item {
     min-width: 55px;
@@ -321,35 +421,47 @@ body {
     justify-content: flex-end;
 }
 
-
 .bar-value {
     font-size: 11px;
 
-    color: #555;
+    color: #6b7280;
 
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 
     white-space: nowrap;
-}
 
+    font-weight: 500;
+}
 
 .bar {
-    width: 35px;
+    width: 34px;
 
-    min-height: 2px;
+    min-height: 3px;
 
-    background: #333;
+    background:
+        linear-gradient(
+            to top,
+            #4f46e5,
+            #818cf8
+        );
 
-    border-radius: 4px 4px 0 0;
+    border-radius: 6px 6px 2px 2px;
 
-    transition: height 0.3s;
+    transition:
+        height 0.4s ease,
+        opacity 0.2s ease;
 }
 
+.bar:hover {
+    opacity: 0.8;
+}
 
 .bar-label {
-    margin-top: 8px;
+    margin-top: 9px;
 
     font-size: 12px;
+
+    color: #6b7280;
 
     white-space: nowrap;
 }
@@ -361,48 +473,93 @@ body {
 
 .table-wrapper {
     overflow-x: auto;
-}
 
+    margin-top: 12px;
+
+    border: 1px solid #edf0f4;
+
+    border-radius: 10px;
+}
 
 table {
     width: 100%;
 
     border-collapse: collapse;
 
-    margin-top: 15px;
-}
+    margin: 0;
 
+    background: #ffffff;
+}
 
 th,
 td {
-    padding: 13px 10px;
+    padding: 14px 12px;
 
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #eef0f3;
 
     text-align: center;
+
+    font-size: 13px;
+}
+
+th {
+    background: #f8f9fb;
+
+    color: #5f6877;
+
+    font-weight: 650;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #e5e8ed;
+}
+
+td {
+    color: #374151;
+}
+
+tbody tr {
+    transition: background 0.15s ease;
+}
+
+tbody tr:hover {
+    background: #f8f9ff;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.empty {
+    padding: 45px !important;
+
+    color: #a0a7b2;
 
     font-size: 14px;
 }
 
 
-th {
-    background: #f5f5f5;
+/* ==========================================
+   Scrollbar
+========================================== */
 
-    font-weight: bold;
-
-    white-space: nowrap;
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
 }
 
-
-tbody tr:hover {
-    background: #fafafa;
+::-webkit-scrollbar-track {
+    background: transparent;
 }
 
+::-webkit-scrollbar-thumb {
+    background: #d4d8df;
 
-.empty {
-    padding: 40px;
+    border-radius: 10px;
+}
 
-    color: #999;
+::-webkit-scrollbar-thumb:hover {
+    background: #b8bec8;
 }
 
 
@@ -410,26 +567,74 @@ tbody tr:hover {
    Responsive
 ========================================== */
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
 
     .summary {
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
 
+    .search-box {
+        align-items: stretch;
+    }
 
     .input-group {
-        width: 100%;
+        flex: 1;
+        min-width: 180px;
     }
-
 
     .input-group input,
     .input-group select {
         width: 100%;
     }
 
-
     .search-button {
         width: 100%;
     }
+}
 
+
+@media (max-width: 600px) {
+
+    .header-content {
+        padding: 24px 0;
+    }
+
+    .header h1 {
+        font-size: 23px;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    .card {
+        padding: 18px;
+
+        border-radius: 11px;
+    }
+
+    .summary-card {
+        padding: 18px;
+    }
+
+    .section-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .result-actions {
+        width: 100%;
+    }
+
+    .excel-button {
+        width: 100%;
+    }
+
+    .chart {
+        height: 300px;
+
+        padding-left: 12px;
+        padding-right: 12px;
+    }
 }
